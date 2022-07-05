@@ -35,11 +35,11 @@ public class UserMenu extends javax.swing.JFrame {
             // El resultado de la consulta del query nos determinara la cantidad de empleados que existen
             while (rs.next()){
                 empleado [0] = rs.getInt("idEmp");
-                empleado [1] = rs.getString("nombreEmp") + "" + rs.getString("apellidos");
-                empleado [2] = rs.getInt("tipoDocumento");
+                empleado [1] = rs.getString("nombreEmp") + " " + rs.getString("apellidos");
+                empleado [2] = rs.getString("tipoDocumento");
                 empleado [3] = rs.getString("documento");
                 empleado [4] = rs.getString("correo");
-                // en la tabla creamos una nmueva fila con los 5 atributos del objetop empleado
+                // en la tabla creamos una nueva fila con los 5 atributos del objetop empleado
                 contenidoTablaEmpleados.addRow(empleado);
                 tblEmpleados.setModel(contenidoTablaEmpleados);
                 System.out.println("idEmp: " + empleado [0] + ", nombre " + empleado [1] + ", Tipo de documento " + empleado [2] + ",Documento" + empleado [3]+ ", correo " + empleado [4]);
@@ -49,7 +49,6 @@ public class UserMenu extends javax.swing.JFrame {
             
         }
     }
-    
     private void borrarRegistrosTabla(){
         // getRowCount develve la cantidad de filas que tiene la tabla
         for (int i = 0; i < tblEmpleados.getRowCount(); i++) {
