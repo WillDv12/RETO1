@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
 public class AddUserForm extends javax.swing.JDialog {
-
     Conexion conexion = new Conexion();
     Connection connection;
     Statement st;
