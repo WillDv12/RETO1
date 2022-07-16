@@ -21,13 +21,14 @@ public class ShowUserForm extends javax.swing.JDialog {
         this.setLocationRelativeTo(parent);
     }
 
-    public void recibirDatosDeUserMenu(int idEmp, String nombreEmp, String apellidos, String tipoDocumento, String documento, String correo) {
+    public void recibirDatosDeUserMenu(int idEmp, String nombreEmp, String apellidos, String tipoDocumento, String documento, String correo, int idDependencia) {
         txtIdEmp.setText("" + idEmp);
         txtNombreEmp.setText(nombreEmp);
         txtApellidos.setText(apellidos);
         txtTipoDocumento.setText(tipoDocumento);
         txtDocumento.setText(documento);
         txtCorreo.setText(correo);
+        txtidDependencia.setText(""+ idDependencia);
     }
 
     public void actualizarEmpleado() {
@@ -47,7 +48,7 @@ public class ShowUserForm extends javax.swing.JDialog {
         } else if (correo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "El Correo del empleado es requerido.", "", JOptionPane.WARNING_MESSAGE);
         } else {
-            String query = "UPDATE `empleados` SET `nombreEmp`='" + nombreEmp + "',`apellidos`='" + apellidos + "',`correo`='" + correo + "' WHERE idEmp = " + idEmp + ";";
+            String query = "UPDATE `empleado` SET `nombreEmp`='" + nombreEmp + "',`apellidos`='" + apellidos + "',`correo`='" + correo + "' WHERE idEmp = " + idEmp + ";";
             System.out.println(query);
             try {
                 connection = conexion.getConnection();
@@ -64,7 +65,7 @@ public class ShowUserForm extends javax.swing.JDialog {
 
     public void eliminarEmpleado() {
         int idEmp = Integer.parseInt(txtIdEmp.getText());
-        String query = "DELETE FROM `empleados` WHERE idEmp = " + idEmp + ";";
+        String query = "DELETE FROM `empleado` WHERE idEmp = " + idEmp + ";";
         try {
             connection = conexion.getConnection();
             st = connection.createStatement();
@@ -98,6 +99,8 @@ public class ShowUserForm extends javax.swing.JDialog {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        txtidDependencia = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -152,6 +155,8 @@ public class ShowUserForm extends javax.swing.JDialog {
             }
         });
 
+        jLabel9.setText("Dependencia");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -168,25 +173,27 @@ public class ShowUserForm extends javax.swing.JDialog {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(btnEditar)))
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNombreEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtTipoDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                .addComponent(txtApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                .addComponent(txtNombreEmp, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                                 .addComponent(txtIdEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnEliminar)
-                                .addGap(45, 45, 45)
-                                .addComponent(btnRegresar)
-                                .addGap(60, 60, 60)))))
+                                .addComponent(txtDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                .addComponent(txtidDependencia)))))
                 .addContainerGap(8, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(66, Short.MAX_VALUE)
+                .addComponent(btnEditar)
+                .addGap(54, 54, 54)
+                .addComponent(btnEliminar)
+                .addGap(40, 40, 40)
+                .addComponent(btnRegresar)
+                .addGap(73, 73, 73))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,15 +223,27 @@ public class ShowUserForm extends javax.swing.JDialog {
                     .addComponent(jLabel6)
                     .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnRegresar))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtidDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnEliminar))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRegresar))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEditar)))
+                .addGap(49, 49, 49))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,6 +336,7 @@ public class ShowUserForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
@@ -324,5 +344,6 @@ public class ShowUserForm extends javax.swing.JDialog {
     private javax.swing.JTextField txtIdEmp;
     private javax.swing.JTextField txtNombreEmp;
     private javax.swing.JTextField txtTipoDocumento;
+    private javax.swing.JTextField txtidDependencia;
     // End of variables declaration//GEN-END:variables
 }
