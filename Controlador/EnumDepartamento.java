@@ -1,7 +1,7 @@
 package Controlador;
 
 public enum EnumDepartamento {
-    Selecciona_una_opcion,
+    SeleccionaunaOpción,
     Amazonas,
     Antioquia,
     Arauca,

@@ -1,16 +1,15 @@
 package Vistas;
 
-import Modelo.Conexion;
+import Modelo.*;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 public class SucursalForm extends javax.swing.JDialog {
 
-    Conexion conexion = new Conexion();
     Connection connection;
+    Conexion conexion = new Conexion();
     Statement st;
 
     public SucursalForm(java.awt.Frame parent, boolean modal) {
@@ -19,24 +18,23 @@ public class SucursalForm extends javax.swing.JDialog {
         this.setLocationRelativeTo(parent);
     }
 
-    public void recibeDatosDireccion(int idDireccion) {
+    public void recibeIdDireccion(int idDireccion) {
         String sucursal = txtSucursal.getText();
         if (sucursal.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor ingresar el nombre de la sucursal.","", JOptionPane.ERROR_MESSAGE);
         } else {
-            String query = "INSERT INTO `sucursal`(`nombreSucursal`, `FK_nit`, `FK_idDireccion`) VALUES ('"
+        String queryRegistroSucursal = "INSERT INTO `sucursal`(`nombreSucursal`, `FK_nit`, `FK_idDireccion`) VALUES ('"
                     + sucursal + "',999999991," + idDireccion + ");";
-            try {
-                connection = conexion.getConnection();
-                st = connection.createStatement();
-                st.executeUpdate(query);
-                JOptionPane.showMessageDialog(this, "Sucursal creada exitosamente.");
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-            System.out.println(query);
+        System.out.println(queryRegistroSucursal);
+        try {
+            connection = conexion.getConnection();
+            st = connection.createStatement();
+            st.executeUpdate(queryRegistroSucursal);
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("");
         }
-
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -46,7 +44,7 @@ public class SucursalForm extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtSucursal = new javax.swing.JTextField();
-        btnAgregar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,11 +52,11 @@ public class SucursalForm extends javax.swing.JDialog {
 
         jLabel1.setText("Sucursal");
 
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/confirmIcon.png"))); // NOI18N
-        btnAgregar.setActionCommand("");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assests/Sucursal (1).png"))); // NOI18N
+        btnGuardar.setText("Crear");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -67,22 +65,25 @@ public class SucursalForm extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addContainerGap()
                 .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAgregar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnGuardar)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addComponent(btnGuardar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -92,23 +93,27 @@ public class SucursalForm extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        String sucursal = txtSucursal.getText();
+        if (sucursal.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre de la sucursal es reqerido", "Sucursal", JOptionPane.ERROR_MESSAGE);
+        }
         this.dispose();
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,7 +141,6 @@ public class SucursalForm extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(SucursalForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -154,7 +158,7 @@ public class SucursalForm extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtSucursal;

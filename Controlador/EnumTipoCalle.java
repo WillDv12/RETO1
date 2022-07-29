@@ -1,7 +1,7 @@
 package Controlador;
 
 public enum EnumTipoCalle {
-    Selecciona_una_opcion,
+    SeleccionaunaOpción,
     Avenida,
     Calle,
     Carrera,

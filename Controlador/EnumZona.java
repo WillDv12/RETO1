@@ -1,8 +1,8 @@
+
 package Controlador;
 
-
 public enum EnumZona {
-    Selecciona_una_opcion,
+    SeleccionaunaOpción,
     Rural,
     Urbana
 }

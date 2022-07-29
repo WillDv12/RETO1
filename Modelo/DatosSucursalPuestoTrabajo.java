@@ -1,6 +1,5 @@
 package Modelo;
 
-
 public class DatosSucursalPuestoTrabajo {
     private int idSucursal;
     private String nombreSucursal;
@@ -54,8 +53,5 @@ public class DatosSucursalPuestoTrabajo {
 
     public void setSalario(float salario) {
         this.salario = salario;
-    }
-    
-    
-    
+    } 
 }

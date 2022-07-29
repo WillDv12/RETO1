@@ -1,16 +1,16 @@
 package Principal;
-import Modelo.*;
 import Vistas.*;
+import Modelo.*;
+import Controlador.*;
 
 public class Main {
-
     public static void main(String[] args) {
-        //1. Creamos la instancia de la clase conexion
+        // 2. Crear instancia de la clase conexión 
         Conexion conexion = new Conexion();
         conexion.getConnection();
-        //2. Creamos una instancia de la vista Login
-        Login login = new Login();
-        //3. Mediante la instancia de la vista llamamos el método que la hace visible
+                
+        // 1. Crear instancia del JFrame Login
+        Login login = new Login ();
         login.setVisible(true);
     }
 }
